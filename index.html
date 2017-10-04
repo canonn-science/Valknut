@@ -25,7 +25,7 @@
 
       <div class="panel">
         <div class="row">
-          <div class="col-2">
+          <div class="col-4">
               <div class="row">
                 <div class="col-12 iconography">
                   <img src="images/symbols/core.png" id="core">
@@ -33,26 +33,24 @@
                   <img src="images/symbols/1A.png" id="outer-ring">
                 </div>
               </div>  
+
               <div class="row">
-                <div class="col-12">
-                  <input type="text" id="glyph-code" size="10" value="" readonly>
-                </div>
-              </div>
+                <input type="text" id="glyph-code" size="10" value="" readonly>
+                
+              </div>  
           </div>
 
-          <div class="col-10">
+          <div class="col-8">
             <div class="row">
               <div class="col-12">
                 <h2>Inner Ring</h2>
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
-                <div class="btn-group canonn-ring-inner" role="group" aria-label="Inner Ring">
+              <div class="col-12 ring-group canonn-ring-inner">
                   <button type="button" class="btn btn-secondary" value="1"><img src="images/symbols/1.png"></button>
                   <button type="button" class="btn btn-secondary" value="2"><img src="images/symbols/2.png"></button>
                   <button type="button" class="btn btn-secondary" value="3"><img src="images/symbols/3.png"></button>
-                </div>
               </div>
             </div>    
 
@@ -62,56 +60,45 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 1">
+              <div class="col-12 ring-group canonn-ring-outer">
                   <button type="button" class="btn btn-secondary" value="1A"><img src="images/symbols/1A.png"></button>
                   <button type="button" class="btn btn-secondary" value="1B"><img src="images/symbols/1B.png"></button>
                   <button type="button" class="btn btn-secondary" value="1C"><img src="images/symbols/1C.png"></button>
                   <button type="button" class="btn btn-secondary" value="1D"><img src="images/symbols/1D.png"></button>
-                </div>
               </div>
             </div>  
             <div class="row">
-              <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 2">
+              <div class="col-12 ring-group canonn-ring-outer">
                   <button type="button" class="btn btn-secondary" value="2A"><img src="images/symbols/2A.png"></button>
                   <button type="button" class="btn btn-secondary" value="2B"><img src="images/symbols/2B.png"></button>
                   <button type="button" class="btn btn-secondary" value="2C"><img src="images/symbols/2C.png"></button>
                   <button type="button" class="btn btn-secondary" value="2D"><img src="images/symbols/2D.png"></button>
                   <button type="button" class="btn btn-secondary" value="2E"><img src="images/symbols/2E.png"></button>
-                </div>
               </div>
             </div>    
 
             <div class="row">
-              <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 3">
+              <div class="col-12 ring-group canonn-ring-outer">
                   <button type="button" class="btn btn-secondary" value="3A"><img src="images/symbols/3A.png"></button>
                   <button type="button" class="btn btn-secondary" value="3B"><img src="images/symbols/3B.png"></button>
-                </div>
               </div>
             </div>   
 
             <div class="row">
-              <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 4">
+              <div class="col-12 ring-group canonn-ring-outer">
                   <button type="button" class="btn btn-secondary" value="4A"><img src="images/symbols/4A.png"></button>
                   <button type="button" class="btn btn-secondary" value="4B"><img src="images/symbols/4B.png"></button>
-                  <button type="button" class="btn btn-secondary" value="4C"><img src="images/symbols/4C.png"></button>
                   <button type="button" class="btn btn-secondary" value="4D"><img src="images/symbols/4D.png"></button>
                   <button type="button" class="btn btn-secondary" value="4E"><img src="images/symbols/4E.png"></button>
                   <button type="button" class="btn btn-secondary" value="4F"><img src="images/symbols/4F.png"></button>
                   <button type="button" class="btn btn-secondary" value="4G"><img src="images/symbols/4G.png"></button>
                   <button type="button" class="btn btn-secondary" value="4H"><img src="images/symbols/4H.png"></button>
-                </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 7">
+              <div class="col-12 ring-group canonn-ring-outer">
                   <button type="button" class="btn btn-secondary" value="7A"><img src="images/symbols/7A.png"></button>
-                </div>
               </div>
             </div>
 
@@ -180,7 +167,7 @@
 
 
       $(document).ready(function(){
-        $(".btn-group > .btn").click(function(){
+        $(".ring-group > .btn").click(function(){
             //Get class from the parent
             if($(this).parent().hasClass('canonn-ring-inner')){
               //Clear the status of other elements
