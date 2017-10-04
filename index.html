@@ -35,7 +35,7 @@
               </div>  
               <div class="row">
                 <div class="col-12">
-                  <input type="text" id="glyph-code" size="10" value="">
+                  <input type="text" id="glyph-code" size="10" value="" readonly>
                 </div>
               </div>
           </div>
@@ -73,7 +73,7 @@
             </div>  
             <div class="row">
               <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 1">
+                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 2">
                   <button type="button" class="btn btn-secondary" value="2A"><img src="images/symbols/2A.png"></button>
                   <button type="button" class="btn btn-secondary" value="2B"><img src="images/symbols/2B.png"></button>
                   <button type="button" class="btn btn-secondary" value="2C"><img src="images/symbols/2C.png"></button>
@@ -85,16 +85,16 @@
 
             <div class="row">
               <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 1">
+                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 3">
                   <button type="button" class="btn btn-secondary" value="3A"><img src="images/symbols/3A.png"></button>
                   <button type="button" class="btn btn-secondary" value="3B"><img src="images/symbols/3B.png"></button>
                 </div>
               </div>
             </div>   
 
-             <div class="row">
+            <div class="row">
               <div class="col-12">
-                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 1">
+                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 4">
                   <button type="button" class="btn btn-secondary" value="4A"><img src="images/symbols/4A.png"></button>
                   <button type="button" class="btn btn-secondary" value="4B"><img src="images/symbols/4B.png"></button>
                   <button type="button" class="btn btn-secondary" value="4C"><img src="images/symbols/4C.png"></button>
@@ -105,7 +105,16 @@
                   <button type="button" class="btn btn-secondary" value="4H"><img src="images/symbols/4H.png"></button>
                 </div>
               </div>
-            </div>                
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="btn-group btn-group-sm canonn-ring-outer" role="group" aria-label="Outer Ring Group 7">
+                  <button type="button" class="btn btn-secondary" value="7A"><img src="images/symbols/7A.png"></button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
               
@@ -132,12 +141,41 @@
       }
 
       function updateSelection(){
+        window.thargoidGlyph.inner = window.thargoidGlyph.inner.toUpperCase();
+        window.thargoidGlyph.outer = window.thargoidGlyph.outer.toUpperCase();
+        
         $('#glyph-code').val(window.thargoidGlyph.outer + '-' + window.thargoidGlyph.inner);
 
         $('#inner-ring').attr('src','images/symbols/' + window.thargoidGlyph.inner + '.png');
         $('#outer-ring').attr('src','images/symbols/' + window.thargoidGlyph.outer + '.png');
 
         $('#glyph-code').val(window.thargoidGlyph.outer + '-' + window.thargoidGlyph.inner);
+
+        window.location.hash = $('#glyph-code').val();
+      }
+
+      function processNavPath(){
+        //Check for navigation
+        var navData = String(window.location.hash || '').replace('#','').split('-');
+        window.thargoidGlyph.outer = String(navData[0] || '1A');
+        window.thargoidGlyph.inner = String(navData[1] || '1');
+
+        //Select the specific items
+        setRingSelectedItem('outer',window.thargoidGlyph.outer);
+        setRingSelectedItem('inner',window.thargoidGlyph.inner);
+        
+        //Update the display
+        updateSelection();
+
+      }
+
+      function setRingSelectedItem(ring,value){
+        //Clear the status of other elements
+        $('.canonn-ring-' + ring +' .btn').removeClass("selected");
+        $('.canonn-ring-' + ring +' .btn[value=' + value + ']').addClass("selected");
+
+        //Store teh value        
+        window.thargoidGlyph[ring] = value;
       }
 
 
@@ -146,25 +184,33 @@
             //Get class from the parent
             if($(this).parent().hasClass('canonn-ring-inner')){
               //Clear the status of other elements
-              $('.canonn-ring-inner .btn').removeClass("selected");
-              $(this).addClass("selected");
-
-              window.thargoidGlyph.inner = $(this).val();
+              setRingSelectedItem('inner',$(this).val());             
             }
 
-            //Get class from the parent
             if($(this).parent().hasClass('canonn-ring-outer')){
               //Clear the status of other elements
-              $('.canonn-ring-outer .btn').removeClass("selected");
-              $(this).addClass("selected");
-
-              window.thargoidGlyph.outer = $(this).val();
+              setRingSelectedItem('outer',$(this).val());             
             }
 
-            //Update the display
+
+            //update the display
             updateSelection();
         });
-      })
+
+        $(window).on('hashchange', function() {
+
+          //Process any #1A-3 tags
+          processNavPath();
+
+        });
+
+        //Initial processing
+        processNavPath();
+
+      });
+
+
+
     
     </script>
   </body>
