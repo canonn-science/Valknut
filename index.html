@@ -154,14 +154,12 @@
         $('#glyph-code').val(glyphCode);
 
         //Generate the composite including identifying the path of the given site
-        var sitePath = $.map( window.location.pathname.split('/'), function(v){
-          return v === "" ? null : v;
-        });
-        sitePath = sitePath.slice(0,sitePath.length-1).join('/');
-        var baseUrl = window.location.protocol + "//" + window.location.host + "/" + sitePath;
-        $('#glyph-composite').val(baseUrl + 'images/composite/' + glyphCode + '.png');
+        var sitePath = window.location.href;
+        sitePath = sitePath.substring(0, sitePath.lastIndexOf("/")+1);
+        $('#glyph-composite').val(sitePath + 'images/composite/' + glyphCode + '.png');
 
-        window.location.hash = $('#glyph-code').val();
+        //Update the window URI so it can be copied/pasted
+        window.location.hash = glyphCode;
       }
 
       function processNavPath(){
