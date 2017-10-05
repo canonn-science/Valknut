@@ -159,7 +159,7 @@
         });
         sitePath = sitePath.slice(0,sitePath.length-1).join('/');
         var baseUrl = window.location.protocol + "//" + window.location.host + "/" + sitePath;
-        $('#glyph-composite').val(baseUrl + '/images/composite/' + glyphCode + '.png');
+        $('#glyph-composite').val(baseUrl + 'images/composite/' + glyphCode + '.png');
 
         window.location.hash = $('#glyph-code').val();
       }
