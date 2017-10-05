@@ -35,8 +35,21 @@
               </div>  
 
               <div class="row">
-                <input type="text" id="glyph-code" size="10" value="" readonly>
-                
+                <div class="col-3 text-right">
+                  Code:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="glyph-code" class="user-selectable" size="15" value="" readonly>
+                </div>
+              </div>  
+
+              <div class="row">
+                <div class="col-3 text-right">
+                  Image:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="glyph-composite"  class="user-selectable" size="15" value="" readonly>
+                </div>
               </div>  
           </div>
 
@@ -131,12 +144,22 @@
         window.thargoidGlyph.inner = window.thargoidGlyph.inner.toUpperCase();
         window.thargoidGlyph.outer = window.thargoidGlyph.outer.toUpperCase();
         
-        $('#glyph-code').val(window.thargoidGlyph.outer + '-' + window.thargoidGlyph.inner);
-
+        //Update symbols
         $('#inner-ring').attr('src','images/symbols/' + window.thargoidGlyph.inner + '.png');
         $('#outer-ring').attr('src','images/symbols/' + window.thargoidGlyph.outer + '.png');
+        
 
-        $('#glyph-code').val(window.thargoidGlyph.outer + '-' + window.thargoidGlyph.inner);
+        //Generate the code
+        var glyphCode = window.thargoidGlyph.outer + '-' + window.thargoidGlyph.inner;
+        $('#glyph-code').val(glyphCode);
+
+        //Generate the composite including identifying the path of the given site
+        var sitePath = $.map( window.location.pathname.split('/'), function(v){
+          return v === "" ? null : v;
+        });
+        sitePath = sitePath.slice(0,sitePath.length-1).join('/');
+        var baseUrl = window.location.protocol + "//" + window.location.host + "/" + sitePath;
+        $('#glyph-composite').val(baseUrl + '/images/composite/' + glyphCode + '.png');
 
         window.location.hash = $('#glyph-code').val();
       }
@@ -185,19 +208,19 @@
         });
 
         $(window).on('hashchange', function() {
-
           //Process any #1A-3 tags
           processNavPath();
+        });
 
+        //Handle user copy/selection of the glyph codes
+        $('.user-selectable').on('contextmenu',function(){
+          $(this).select();
         });
 
         //Initial processing
         processNavPath();
 
       });
-
-
-
     
     </script>
   </body>
