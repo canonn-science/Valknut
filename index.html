@@ -15,7 +15,7 @@
     <!-- Custom styles for this template -->
     <link href="css/site.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  </head>
+</head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-102148507-4"></script>
 <script>
@@ -59,6 +59,74 @@
                 </div>
                 <div class="col-9">
                   <input type="text" id="glyph-composite"  class="user-selectable" size="15" value="" readonly>
+                </div>
+              </div>  
+			  <div class="row">
+                <div class="col-3 text-right">
+                  System:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="system" class="user-selectable" size="" value="" >
+                </div>
+              </div>  
+			  <div class="row">
+                <div class="col-3 text-right">
+                  Body:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="body" class="user-selectable" size="" value="" >
+                </div>
+              </div>  
+
+			  <div class="row">
+                <div class="col-3 text-right">
+                  Event Type:
+                </div>
+                <div class="col-9" id="event">
+                   <select>
+				    <option value="NHSS">Non Human Signal Source</option>
+					<option value="Hyperdiction">Hyperdiction</option>
+					<option value="Alien Surface Site">Alien Surface Site</option>
+					<option value="Barnacle Site">Barnacle Site</option>				
+					<option value="USS">Unidentified Signal Source</option>					
+					<option value="Other">Other</option>
+					</select> 
+                </div>
+              </div>  
+			  
+			  <div class="row">
+                <div class="col-3 text-right">
+                  Body Type:
+                </div>
+                <div class="col-9" id="bodytype">
+                    <select>
+				    <option value="Null">None</option>
+					<option value="Star">Star</option>
+					<option value="Planet">Planet</option>
+					<option value="Planetary Ring">Planetary Ring</option>				
+					<option value="Stellar Ring">Stellar Ring</option>									
+					<option value="Station">Station</option>					
+					<option value="AsteroidCluster">Asteroid Cluster</option>
+					</select> 
+                </div>
+              </div>  			  
+			  
+			  <div class="row">
+                <div class="col-3 text-right">
+                  Report:
+                </div>
+                <div class="col-9">
+                  <!--input type="textarea" id="body" class="user-selectable" size="" value="" -->
+				  <textarea id="freetext"></textarea>
+                </div>
+              </div>  			  			  
+			  
+			  <div class="row">
+                <div class="col-3 text-right">
+                  &nbsp;
+                </div>
+                <div class="col-9">
+                  <input type="submit" id="body" class="" size="" value="Submit Report" >
                 </div>
               </div>  
           </div>
@@ -176,6 +244,11 @@
         outer:'1A'
       }
 
+	  $.urlParam = function(name){
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		return results[1] || 0;
+	  }
+	  
       function updateSelection(){
         window.thargoidGlyph.inner = window.thargoidGlyph.inner.toUpperCase();
         window.thargoidGlyph.outer = window.thargoidGlyph.outer.toUpperCase();
@@ -241,6 +314,11 @@
             updateSelection();
         });
 
+		$('#system').val($.urlParam('system'));
+		$('#body').val($.urlParam('body'));
+		$('#event option[value='+$.urlParam('event')+']').attr('selected','selected');
+		$('#bodytype option[value='+$.urlParam('bodytype')+']').attr('selected','selected');
+		
         $(window).on('hashchange', function() {
           //Process any #1A-3 tags
           processNavPath();
