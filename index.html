@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Thargoid Glyphs</title>
+    <title>Thargoid Interactions</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
 
   <body>
 
-    <h1 class="text-center canonn-heading">Thargoid Glyphs</h1>
+    <h1 class="text-center canonn-heading">Thargoid Interactions</h1>
 
     <div class="container">
 
@@ -44,12 +44,24 @@
                 </div>
               </div>  
 
+			  <div class="row">
+                <div class="col-3 text-right">
+                  CMDR:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="cmdr" class="user-selectable" size="" value="Anonymous" >
+				  <input type="hidden" id="guid" class="hidden" size="" value="Anonymous" >
+                </div>
+              </div>  			  
+
+			  
+			  
               <div class="row">
                 <div class="col-3 text-right">
                   Code:
                 </div>
                 <div class="col-9">
-                  <input type="text" id="glyph-code" class="user-selectable" size="15" value="" readonly>
+                  <input type="text" id="glyph-code" class="user-selectable" size="15" value="" >
                 </div>
               </div>  
 
@@ -61,30 +73,14 @@
                   <input type="text" id="glyph-composite"  class="user-selectable" size="15" value="" readonly>
                 </div>
               </div>  
+			  
 			  <div class="row">
                 <div class="col-3 text-right">
-                  System:
-                </div>
-                <div class="col-9">
-                  <input type="text" id="system" class="user-selectable" size="" value="" >
-                </div>
-              </div>  
-			  <div class="row">
-                <div class="col-3 text-right">
-                  Body:
-                </div>
-                <div class="col-9">
-                  <input type="text" id="body" class="user-selectable" size="" value="" >
-                </div>
-              </div>  
-
-			  <div class="row">
-                <div class="col-3 text-right">
-                  Event Type:
+                  Event:
                 </div>
                 <div class="col-9" id="event">
-                   <select>
-				    <option value="NHSS">Non Human Signal Source</option>
+                   <select id="eventsel" onchange="SelectChanged(this)">
+				    <option value="NHSS" selected>Non Human Signal Source</option>
 					<option value="Hyperdiction">Hyperdiction</option>
 					<option value="Alien Surface Site">Alien Surface Site</option>
 					<option value="Barnacle Site">Barnacle Site</option>				
@@ -94,12 +90,35 @@
                 </div>
               </div>  
 			  
+			  			  
 			  <div class="row">
+                <div class="col-3 text-right">
+                  System:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="system" class="user-selectable" size="" value="" >
+				  <input type="hidden" id="systemx" class="hidden" size="" value="" >
+				  <input type="hidden" id="systemy" class="hidden" size="" value="" >
+				  <input type="hidden" id="systemz" class="hidden" size="" value="" >
+                </div>
+              </div>  
+			  <div class="row" id="divDestination">
+                <div class="col-3 text-right">
+                  Jump System:
+                </div>
+                <div class="col-9" >
+                  <input type="text" id="destination" class="user-selectable" size="" value="" >
+				  <input type="hidden" id="jumpx" class="hidden" size="" value="" >	
+				  <input type="hidden" id="jumpy" class="hidden" size="" value="" >
+				  <input type="hidden" id="jumpz" class="hidden" size="" value="" >				  
+                </div>
+              </div>  			  
+			  <div class="row" id="divBodyType">
                 <div class="col-3 text-right">
                   Body Type:
                 </div>
                 <div class="col-9" id="bodytype">
-                    <select>
+                    <select id="bodyTypeSel" onchange="SelectChanged(this)">
 				    <option value="Null">None</option>
 					<option value="Star">Star</option>
 					<option value="Planet">Planet</option>
@@ -110,6 +129,34 @@
 					</select> 
                 </div>
               </div>  			  
+			  <div class="row" id="divBody">
+                <div class="col-3 text-right">
+                  Body:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="body" class="user-selectable" size="" value="" >
+                </div>
+              </div>  
+				<div class="row" id="divLat">
+                <div class="col-3 text-right">
+                  Lattitude:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="lat" class="user-selectable" size="" value="" >
+                </div>
+              </div>  
+			  
+			  <div class="row" id="divLong">
+                <div class="col-3 text-right">
+                  Longitude:
+                </div>
+                <div class="col-9">
+                  <input type="text" id="lon" class="user-selectable" size="" value="" >
+                </div>
+              </div>  
+			  
+			  
+			  
 			  
 			  <div class="row">
                 <div class="col-3 text-right">
@@ -139,6 +186,7 @@
             </div>
             <div class="row">
               <div class="col-12 ring-group canonn-ring-inner">
+				  <button type="button" class="btn btn-secondary" value="0"><img src="images/symbols/0.png" title="Unknown"></button>
                   <button type="button" class="btn btn-secondary" value="1"><img src="images/symbols/1.png"></button>
                   <button type="button" class="btn btn-secondary" value="2"><img src="images/symbols/2.png"></button>
                   <button type="button" class="btn btn-secondary" value="3"><img src="images/symbols/3.png"></button>
@@ -152,6 +200,7 @@
             </div>
             <div class="row">
               <div class="col-12 ring-group canonn-ring-outer">
+				  <button type="button" class="btn btn-secondary" value="0A"><img src="images/symbols/0A.png" title="Unknown"></button>
                   <button type="button" class="btn btn-secondary" value="1A"><img src="images/symbols/1A.png"></button>
                   <button type="button" class="btn btn-secondary" value="1B"><img src="images/symbols/1B.png"></button>
                   <button type="button" class="btn btn-secondary" value="1C"><img src="images/symbols/1C.png"></button>
@@ -245,9 +294,82 @@
       }
 
 	  $.urlParam = function(name){
+	    try {
 		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		return results[1] || 0;
+		  return results[1] || 0;
+		} catch (error) {
+		  return ""
+		}
 	  }
+	  
+	  // This function need to be called 
+	  function displayEvent(value){
+		
+		
+		switch(value) {
+			case "Hyperdiction":
+				$('#divBodyType').hide()
+				$('#divBody').hide()
+				$('#divDestination').show()
+				$('#divLat').hide()
+				$('#divLong').hide()
+			break;
+ 			case "Non Human Signal Source":
+				$('#divBodyType').show()
+				
+				if ( $('#bodyTypeSel').val() == "None" ) {
+					$('#divBody').hide()
+				} else {
+					$('#divBody').show()
+				}
+				$('#divDestination').hide()
+				$('#divLat').hide()
+				$('#divLong').hide()
+			break;
+			case "Alien Surface Site":		
+				$('#divDestination').hide()
+				$('#bodyTypeSel option[value='+"Planet"+']').attr('selected','selected');
+				$('#divBodyType').hide()
+				$('#divBody').show()
+				$('#divLat').show()
+			    $('#divLong').show()
+			break;			
+			case "Barnacle Site":
+				$('#divDestination').hide()
+				$('#bodyTypeSel option[value='+"Planet"+']').attr('selected','selected');
+				$('#divBodyType').hide()
+				$('#divBody').show()
+				$('#divLat').show()
+			    $('#divLong').show()
+
+			break;								
+			case "Unidentified Signal Source":
+				$('#divBodyType').show()
+				$('#divBody').show()
+				$('#divDestination').hide()
+				$('#divLat').hide()
+				$('#divLong').hide()
+			break;						 
+		default:
+			$('#divBodyType').show()
+			$('#divBody').show()
+			$('#divDestination').hide()
+			$('#divLat').show()
+			$('#divLong').show()
+		} 
+		
+	  }
+	  
+	  $("#eventsel").on("change", function() {
+	    displayEvent(this.value)
+		
+	  });
+	  
+	  $("#bodyTypeSel").on("change", function() {
+	    displayEvent(this.value)
+		
+	  });
+	
 	  
       function updateSelection(){
         window.thargoidGlyph.inner = window.thargoidGlyph.inner.toUpperCase();
@@ -314,10 +436,13 @@
             updateSelection();
         });
 
+				
 		$('#system').val($.urlParam('system'));
 		$('#body').val($.urlParam('body'));
 		$('#event option[value='+$.urlParam('event')+']').attr('selected','selected');
-		$('#bodytype option[value='+$.urlParam('bodytype')+']').attr('selected','selected');
+		$('#bodyTypeSel option[value="'+$.urlParam('bodytype')+'"]').attr('selected','selected');
+		
+		displayEvent($.urlParam('event'))
 		
         $(window).on('hashchange', function() {
           //Process any #1A-3 tags
