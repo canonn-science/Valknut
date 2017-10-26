@@ -79,11 +79,11 @@
                   Event:
                 </div>
                 <div class="col-9" id="event">
-                   <select id="eventsel" onchange="SelectChanged(this)">
+                   <select id="eventsel" >
 				    <option value="NHSS" selected>Non Human Signal Source</option>
 					<option value="Hyperdiction">Hyperdiction</option>
-					<option value="Alien Surface Site">Alien Surface Site</option>
-					<option value="Barnacle Site">Barnacle Site</option>				
+					<option value="ASS">Alien Surface Site</option>
+					<option value="BSS">Barnacle Site</option>				
 					<option value="USS">Unidentified Signal Source</option>					
 					<option value="Other">Other</option>
 					</select> 
@@ -118,11 +118,11 @@
                   Body Type:
                 </div>
                 <div class="col-9" id="bodytype">
-                    <select id="bodyTypeSel" onchange="SelectChanged(this)">
-				    <option value="Null">None</option>
+                    <select id="bodyTypeSel" >
+				    <option value="None">None</option>	
 					<option value="Star">Star</option>
 					<option value="Planet">Planet</option>
-					<option value="Planetary Ring">Planetary Ring</option>				
+					<option value="PlanetaryRing">Planetary Ring</option>				
 					<option value="Stellar Ring">Stellar Ring</option>									
 					<option value="Station">Station</option>					
 					<option value="AsteroidCluster">Asteroid Cluster</option>
@@ -173,7 +173,9 @@
                   &nbsp;
                 </div>
                 <div class="col-9">
-                  <input type="submit" id="body" class="" size="" value="Submit Report" >
+				<form id="submitrep">
+                  <input type="submit" id="submit" class="" size="" value="Submit Report" >
+				  </form>
                 </div>
               </div>  
           </div>
@@ -288,6 +290,7 @@
 
 
     <script>
+	$( document ).ready(function() {
       window.thargoidGlyph = {
         inner:'1',
         outer:'1A'
@@ -302,11 +305,13 @@
 		}
 	  }
 	  
+	  
 	  // This function need to be called 
-	  function displayEvent(value){
-		
-		
-		switch(value) {
+	  function displayEvent(sel,value){
+	  console.log(sel);
+		console.log(value);
+			
+		switch($('#eventsel').val()) {
 			case "Hyperdiction":
 				$('#divBodyType').hide()
 				$('#divBody').hide()
@@ -326,7 +331,7 @@
 				$('#divLat').hide()
 				$('#divLong').hide()
 			break;
-			case "Alien Surface Site":		
+			case "ASS":		
 				$('#divDestination').hide()
 				$('#bodyTypeSel option[value='+"Planet"+']').attr('selected','selected');
 				$('#divBodyType').hide()
@@ -334,7 +339,7 @@
 				$('#divLat').show()
 			    $('#divLong').show()
 			break;			
-			case "Barnacle Site":
+			case "BSS":
 				$('#divDestination').hide()
 				$('#bodyTypeSel option[value='+"Planet"+']').attr('selected','selected');
 				$('#divBodyType').hide()
@@ -345,31 +350,69 @@
 			break;								
 			case "USS":
 				$('#divBodyType').show()
-				$('#divBody').show()
+				if ( $('#bodyTypeSel').val() == "None" ) {
+					$('#divBody').hide()
+				} else {
+					$('#divBody').show()
+				}
 				$('#divDestination').hide()
 				$('#divLat').hide()
 				$('#divLong').hide()
 			break;						 
 		default:
 			$('#divBodyType').show()
+			if ( $('#bodyTypeSel').val() == "None" ) {
+					$('#divBody').hide()
+				} else {
+					$('#divBody').show()
+			}
 			$('#divBody').show()
 			$('#divDestination').hide()
 			$('#divLat').show()
 			$('#divLong').show()
 		} 
-		
+		console.log("displayed")
 	  }
 	  
+	  
+	  
 	  $("#eventsel").on("change", function() {
-	    displayEvent(this.value)
+	    console.log( "eventsel");
+		console.log( "this.value");
+	    displayEvent("#eventsel",this.value);
 		
 	  });
 	  
 	  $("#bodyTypeSel").on("change", function() {
-	    displayEvent(this.value)
+		console.log(  "bodyTypeSel");
+		console.log( "this.value");
+	    displayEvent("#bodyTypeSel",this.value);
 		
 	  });
 	
+	
+	 $( "#submitrep" ).submit(function( event ) {
+       //alert( "Handler for .submit() called." );
+	   //https://docs.google.com/forms/d/e/1FAIpQLSenIvVoUv7JhEx1Em0qlRPDdZM1J35FIyhG9-s0ASNrfrIMJg/viewform?usp=pp_url&entry.1570264331=CMDR&entry.1654097960=Hyperdiction&entry.832836744=SYSTEM&entry.1880476925=DEST&entry.693778213=USSTYPE&entry.454645020=THREAT&entry.806506140=BODY&entry.1831976373=Planet&entry.92163651=CODE&entry.316689034=REPORT&entry.1723043342=GUID
+	   var url="https://docs.google.com/forms/d/e/1FAIpQLSenIvVoUv7JhEx1Em0qlRPDdZM1J35FIyhG9-s0ASNrfrIMJg/formResponse?usp=pp_url";
+	   var cmdr="entry.1570264331="+$('#cmdr').val();
+	   var event="entry.1654097960="+$('#eventsel').val();
+	   var system="entry.832836744="+$('#system').val();
+	   var dest="entry.1880476925="+$('#destination').val();
+	   var uss="entry.693778213=USSTYPE";
+	   var threat="entry.454645020=TLEVEL";
+	   var body="entry.806506140="+$('#body').val();
+	   var bodytype="entry.1831976373="+$('#bodyTypeSel').val();
+	   var code="entry.92163651="+$('#code').val();
+	   var report="entry.316689034=REPORT"+$('#report').val();
+	   var guid="entry.1723043342"+$('#guid').val();
+       //event.preventDefault();
+	   console.log(url+"&"+cmdr+"&"+event+"&"+system+"&"+dest+"&"+uss+"&"+threat+"&"+body+"&"+bodytype+"&"+code+"&"+report+"&"+guid)
+	   window.location = url+"&"+cmdr+"&"+event+"&"+system+"&"+dest+"&"+uss+"&"+threat+"&"+body+"&"+bodytype+"&"+code+"&"+report+"&"+guid;
+	   return false;
+     });
+	 
+	 
 	  
       function updateSelection(){
         window.thargoidGlyph.inner = window.thargoidGlyph.inner.toUpperCase();
@@ -417,6 +460,12 @@
         window.thargoidGlyph[ring] = value;
       }
 
+	  function getCoordinates(system){
+		$.getJSON('https://www.edsm.net/api-v1/system?systemName='+system+"&showCoordinates=1", function(data) {
+		//data is the JSON string
+		});
+		return data;
+	  }
 
       $(document).ready(function(){
         $(".ring-group > .btn").click(function(){
@@ -458,7 +507,7 @@
         processNavPath();
 
       });
-    
+    });	
     </script>
   </body>
 </html>
