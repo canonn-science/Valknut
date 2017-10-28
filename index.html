@@ -54,7 +54,20 @@
                 </div>
               </div>  			  
 
-			  
+			  <div class="row" id="divQuantity">
+                <div class="col-3 text-right">
+                  How Many:
+                </div>
+                <div class="col-9" id="quantity">
+                    <select id="quantitySel" >
+				    <option value="0">No Thargoids Present</option>	
+					<option value="1">1 Thargoid</option>
+					<option value="2">2 Thargoids</option>
+					<option value="3">3 Thargoids</option>				
+					<option value="4+">Many Thargoids</option>									
+					</select> 
+                </div>
+              </div>  					  
 			  
               <div class="row">
                 <div class="col-3 text-right">
@@ -90,6 +103,29 @@
                 </div>
               </div>  
 			  
+			  <div class="row" id="divUSSType">
+                <div class="col-3 text-right">
+                  USSType:
+                </div>
+                <div class="col-9" id="ussType">
+                   <select id="ussSel" >
+						<option value="USSTypeNonHuman" selected>Non-Human Signal Source</option>
+						<option value="USS_Type_DistressSignal">Distress call</option>
+						<option value="USS_Type_Salvage">Degraded emissions detected</option>	
+						<option value="USS_Type_WeaponsFire">Weapons fire detected</option>
+						<option value="USS_Type_ValuableSalvage">Encoded emissions detected</option>
+						<option value="USS_Type_Aftermath">Combat aftermath detected</option>
+						<option value="USS_Type_MissionTarget">Mission target</option>
+						<option value="USS_Type_VeryValuableSalvage">High grade emissions detected</option>
+						<option value="USS_Type_Convoy">Convoy dispersal pattern detected</option>
+						<option value="USS_Type_Ceremonial">Ceremonial comms detected</option>
+						<option value="USS_Type_TradingBeacon">Trading Beacon</option>
+						<option value="Other">Other</option>
+					</select> 
+                </div>
+              </div>  			  
+			  
+	  
 			  			  
 			  <div class="row">
                 <div class="col-3 text-right">
@@ -164,7 +200,7 @@
                 </div>
                 <div class="col-9">
                   <!--input type="textarea" id="body" class="user-selectable" size="" value="" -->
-				  <textarea id="freetext"></textarea>
+				  <textarea id="report"></textarea>
                 </div>
               </div>  			  			  
 			  
@@ -314,6 +350,7 @@
 		switch($('#eventsel').val()) {
 			case "Hyperdiction":
 				$('#divBodyType').hide()
+				$('#divUSSType').hide()
 				$('#divBody').hide()
 				$('#divDestination').show()
 				$('#divLat').hide()
@@ -321,6 +358,7 @@
 			break;
  			case "NHSS":
 				$('#divBodyType').show()
+				$('#divUSSType').hide()
 				
 				if ( $('#bodyTypeSel').val() == "None" ) {
 					$('#divBody').hide()
@@ -335,6 +373,7 @@
 				$('#divDestination').hide()
 				$('#bodyTypeSel option[value='+"Planet"+']').attr('selected','selected');
 				$('#divBodyType').hide()
+				$('#divUSSType').hide()
 				$('#divBody').show()
 				$('#divLat').show()
 			    $('#divLong').show()
@@ -343,6 +382,7 @@
 				$('#divDestination').hide()
 				$('#bodyTypeSel option[value='+"Planet"+']').attr('selected','selected');
 				$('#divBodyType').hide()
+				$('#divUSSType').hide()
 				$('#divBody').show()
 				$('#divLat').show()
 			    $('#divLong').show()
@@ -350,6 +390,7 @@
 			break;								
 			case "USS":
 				$('#divBodyType').show()
+				$('#divUSSType').show()
 				if ( $('#bodyTypeSel').val() == "None" ) {
 					$('#divBody').hide()
 				} else {
@@ -361,6 +402,7 @@
 			break;						 
 		default:
 			$('#divBodyType').show()
+			$('#divUSSType').hide()
 			if ( $('#bodyTypeSel').val() == "None" ) {
 					$('#divBody').hide()
 				} else {
@@ -393,17 +435,26 @@
 	
 	 $( "#submitrep" ).submit(function( event ) {
        //alert( "Handler for .submit() called." );
-	   //https://docs.google.com/forms/d/e/1FAIpQLSenIvVoUv7JhEx1Em0qlRPDdZM1J35FIyhG9-s0ASNrfrIMJg/viewform?usp=pp_url&entry.1570264331=CMDR&entry.1654097960=Hyperdiction&entry.832836744=SYSTEM&entry.1880476925=DEST&entry.693778213=USSTYPE&entry.454645020=THREAT&entry.806506140=BODY&entry.1831976373=Planet&entry.92163651=CODE&entry.316689034=REPORT&entry.1723043342=GUID
+	   
 	   var url="https://docs.google.com/forms/d/e/1FAIpQLSenIvVoUv7JhEx1Em0qlRPDdZM1J35FIyhG9-s0ASNrfrIMJg/formResponse?usp=pp_url";
 	   var cmdr="entry.1570264331="+$('#cmdr').val();
 	   var event="entry.1654097960="+$('#eventsel').val();
+	   var quantity="entry.1000999050="+$('#quantity').val();
+	   //var actiont="entry.1992564239="  // This will need to be a loop to add in all the selected values
+	   //var actionc="entry.1572207350=Collided&entry.1572207350=Attacked" // // This will need to be a loop to add in all the selected values
 	   var system="entry.832836744="+$('#system').val();
+	   var sysx="entry.24704789="+$('#systemx').val();
+	   var sysy="entry.1832801527="+$('#systemy').val();
+	   var sysz="entry.842118610="+$('#systemz').val();
 	   var dest="entry.1880476925="+$('#destination').val();
+	   var destx="entry.995840288="+$('#destinationx').val();
+	   var desty="entry.466549276="+$('#destinationy').val();
+	   var destz="entry.1896637874="+$('#destinationz').val();
 	   var uss="entry.693778213=USSTYPE";
 	   var threat="entry.454645020=TLEVEL";
 	   var body="entry.806506140="+$('#body').val();
 	   var bodytype="entry.1831976373="+$('#bodyTypeSel').val();
-	   var code="entry.92163651="+$('#code').val();
+	   var code="entry.92163651="+$('#glyph-code').val();
 	   var report="entry.316689034=REPORT"+$('#report').val();
 	   var guid="entry.1723043342"+$('#guid').val();
        //event.preventDefault();
