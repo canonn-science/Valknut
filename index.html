@@ -132,7 +132,10 @@
                   System:
                 </div>
                 <div class="col-9">
-                  <input type="text" id="system" class="user-selectable" size="" value="" >
+				
+
+                  <input type="text" id="systemName" size="" value="" >
+
 				  <input type="hidden" id="systemx" class="hidden" size="" value="" >
 				  <input type="hidden" id="systemy" class="hidden" size="" value="" >
 				  <input type="hidden" id="systemz" class="hidden" size="" value="" >
@@ -319,11 +322,21 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-2.2.3.min.js"></script>
+	
+			  
+	
+	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+	<script src="/js/EDSM.js"></script>
+	
 
+
+					
 
     <script>
 	$( document ).ready(function() {
@@ -332,14 +345,6 @@
         outer:'1A'
       }
 
-	  $.urlParam = function(name){
-	    try {
-		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		  return results[1] || 0;
-		} catch (error) {
-		  return ""
-		}
-	  }
 	  
 	  
 	  // This function need to be called 
@@ -463,7 +468,10 @@
 	   return false;
      });
 	 
-	 
+
+	makeTypeahead($('#systemName'));
+	makeTypeahead($('#destination'));
+
 	  
       function updateSelection(){
         window.thargoidGlyph.inner = window.thargoidGlyph.inner.toUpperCase();
@@ -537,12 +545,12 @@
         });
 
 				
-		$('#system').val($.urlParam('system'));
-		$('#body').val($.urlParam('body'));
-		$('#event option[value='+$.urlParam('event')+']').attr('selected','selected');
-		$('#bodyTypeSel option[value="'+$.urlParam('bodytype')+'"]').attr('selected','selected');
+		//$('#system').val($.urlParam('system'));
+		//$('#body').val($.urlParam('body'));
+		//$('#event option[value='+$.urlParam('event')+']').attr('selected','selected');
+		//$('#bodyTypeSel option[value="'+$.urlParam('bodytype')+'"]').attr('selected','selected');
 		
-		displayEvent($.urlParam('event'))
+		displayEvent('whateva')
 		
         $(window).on('hashchange', function() {
           //Process any #1A-3 tags
