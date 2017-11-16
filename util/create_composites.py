@@ -4,7 +4,7 @@ from fnmatch import fnmatch
 
 def createComposite(source, dest,name):
 	nameNoExt = os.path.splitext(name)[0];
-	for innerIndex in range(1, 4): #1-3
+	for innerIndex in range(1, 7): #1-3
 		#Refresh images so prior loops don't have artefacts
 		core = Image.open(os.path.join(source,"core.png")) 
 		outer = Image.open(os.path.join(source,name))

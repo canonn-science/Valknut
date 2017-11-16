@@ -10,3 +10,6 @@ Copy from the Image field to paste a direct link to the chosen combination where
 # Attribution
 This work would not have been possible without the pioneering research of CMDR Orodir, CMDR Olivia Vespera and other commanders documented here
 https://forums.frontier.co.uk/showthread.php/379844-Xenobiology-study-of-Thargoid-Ship-Logograms-Compendium
+
+Lexigram images from xcf file here
+https://drive.google.com/drive/folders/0B5p67-3SKI2XRDZBMG96N1d4WUE

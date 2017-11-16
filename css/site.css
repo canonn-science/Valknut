@@ -39,6 +39,7 @@ div.iconography img{
     transform: translate(-50%,-50%);
     height: 128px;
     width: 128px;
+    opacity: 0.8;
 }
 
 
