@@ -134,7 +134,7 @@
                 <div class="col-9">
 				
 
-                  <input type="text" id="systemName" size="" value="" >
+                  <input type="text" id="systemName" class="typeahead" size="" value="" >
 
 				  <input type="hidden" id="systemx" class="hidden" size="" value="" >
 				  <input type="hidden" id="systemy" class="hidden" size="" value="" >
@@ -332,6 +332,7 @@
 	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+	<!--script src="/js/bloodhound.js"></script-->
 	<script src="/js/EDSM.js"></script>
 	
 
@@ -345,7 +346,16 @@
         outer:'1A'
       }
 
-	  
+	  // Initialize the Bloodhound suggestion engine
+edsmSystems.initialize()
+
+// Instantiate the Typeahead UI
+$('.typeahead').typeahead(null, {
+    displayKey: 'value',
+    source: edsmSystems.ttAdapter(),
+	templates: edsmTypeaheadTemplate
+});
+
 	  
 	  // This function need to be called 
 	  function displayEvent(sel,value){
@@ -469,8 +479,8 @@
      });
 	 
 
-	makeTypeahead($('#systemName'));
-	makeTypeahead($('#destination'));
+	//makeTypeahead($('#systemName'));
+	//makeTypeahead($('#destination'));
 
 	  
       function updateSelection(){

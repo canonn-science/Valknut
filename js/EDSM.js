@@ -8,7 +8,7 @@
 /**
  * TYPEAHEAD
  */
-var edsmBloodHound          = null;
+ 
 var edsmTypeaheadTemplate   = {
     empty: [
         '<div class="empty-message">',
@@ -35,38 +35,33 @@ var edsmTypeaheadTemplate   = {
         
         return value + '</em>';
     }
-};
-
-var makeTypeahead = function(element){
-    if(edsmBloodHound == null)
-    {
-        edsmBloodHound = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-			url: 'https://www.edsm.net/typeahead/systems/query/%QUERY',
-			remote: {
-            url: 'https://www.edsm.net/typeahead/systems/query/%QUERY',
+}; 
+ 
+// Instantiate the Bloodhound suggestion engine
+var edsmSystems = new Bloodhound({
+    datumTokenizer: function (datum) {
+        return Bloodhound.tokenizers.whitespace(datum.value);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+	url: 'https://www.edsm.net/typeahead/systems/query/%QUERY',
+	
+    remote: {
+        url: 'https://www.edsm.net/typeahead/systems/query/%QUERY',
 			prepare: function(query, settings) {
-                    settings.dataType = "jsonp"
-                    settings.url = settings.url.replace('%QUERY', query)
-					console.log("in prepare: "+settings.url)
-                    return settings;
-            }
-			}
-        }); 
-        edsmBloodHound.initialize();   
+			settings.url = settings.url.replace('%QUERY',query)
+			console.log("in Prep: "+settings.url)
+			return settings;
+		},
+        filter: function (edsmSystems) {
+            // Map the remote source JSON array to a JavaScript object array
+            return $.map(edsmSystems, function (edsmSystem) {
+				console.log("in Filter")
+                return {
+                    value: edsmSystem.value
+                };
+            });
+        }
     }
-    
-    return element.typeahead(
-        {
-            minLength: 2
-        },
-        {
-            name: 'systems',
-            displayKey: 'value',
-            source: edsmBloodHound.ttAdapter(),
-            //templates: edsmTypeaheadTemplate
-        } 
-    );
-};
+});
+
 
