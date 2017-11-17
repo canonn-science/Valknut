@@ -1,11 +1,21 @@
 # Valknut
 
-Symbol Version 3.0 updated 11/10/2017
+Symbol Version 4.0 updated 16/11/2017
             
 # How to use            
 Select the Inner Ring component, and then choose the corresponding Outer Ring component to step through all the various combinations until you get the mix you want.
 
 Copy from the Image field to paste a direct link to the chosen combination wherever you want to refer to and display that glyph combination, on the forums or in a Discord chat.
+
+# Using from other sites
+To reference a code via a link (for example 1A-1)
+https://tools.canonn.technology/thargoid_glyphs/#1A-1
+
+To reference an image directly (for example 1A-1)
+https://tools.canonn.technology/thargoid_glyphs/composite/1A-1.png
+
+You can embed an image in a google sheet cell with this formula (for example the value of a cell such as A7 having "1A-1")
+IMAGE("https://tools.canonn.technology/thargoid_glyphs/composite/" & A7 & ".png")
 
 # Attribution
 This work would not have been possible without the pioneering research of CMDR Orodir, CMDR Olivia Vespera and other commanders documented here
