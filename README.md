@@ -1,6 +1,6 @@
 # Valknut
 
-Symbol Version 4.0 updated 16/11/2017
+Symbol Version 4.0.1 updated 18/11/2017
             
 # How to use            
 Select the Inner Ring component, and then choose the corresponding Outer Ring component to step through all the various combinations until you get the mix you want.

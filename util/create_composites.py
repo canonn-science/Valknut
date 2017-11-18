@@ -1,10 +1,12 @@
 import os, re
-import Image
+from PIL import Image
 from fnmatch import fnmatch
+
+innerRingMax=9
 
 def createComposite(source, dest,name):
 	nameNoExt = os.path.splitext(name)[0];
-	for innerIndex in range(1, 7): #1-3
+	for innerIndex in range(1, (innerRingMax+1)): 
 		#Refresh images so prior loops don't have artefacts
 		core = Image.open(os.path.join(source,"core.png")) 
 		outer = Image.open(os.path.join(source,name))
