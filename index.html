@@ -61,6 +61,12 @@
                   <input type="text" id="glyph-composite"  class="user-selectable" size="15" value="" readonly>
                 </div>
               </div>  
+
+              <div class="row">
+                <div class="col-12 text-center">
+                  <a id="glyph-route-map" href="https://map.canonn.technology/thargoids/?Sigil=2C-1">View on Thargoid Map</a>
+                </div>
+              </div>  
           </div>
 
           <div class="col-8">
@@ -108,6 +114,7 @@
                   <button type="button" class="btn btn-secondary" value="2C"><img src="images/symbols/2C.png"></button>
                   <button type="button" class="btn btn-secondary" value="2D"><img src="images/symbols/2D.png"></button>
                   <button type="button" class="btn btn-secondary" value="2E"><img src="images/symbols/2E.png"></button>
+                  <button type="button" class="btn btn-secondary" value="2F"><img src="images/symbols/2F.png"></button>
               </div>
             </div>    
 
@@ -204,6 +211,9 @@
         var sitePath = window.location.href;
         sitePath = sitePath.substring(0, sitePath.lastIndexOf("/")+1);
         $('#glyph-composite').val(sitePath + 'images/composite/' + glyphCode + '.png');
+
+        //Update the Thargoid Map
+        $('#glyph-route-map').attr("href", "https://map.canonn.technology/thargoids/?Sigil=" + encodeURI(glyphCode));
 
         //Update the window URI so it can be copied/pasted
         window.location.hash = glyphCode;
