@@ -9,13 +9,13 @@ Copy from the Image field to paste a direct link to the chosen combination where
 
 # Using from other sites
 To reference a code via a link (for example 1A-1)
-https://tools.canonn.technology/thargoid_glyphs/#1A-1
+https://tools.canonn.tech/thargoid_glyphs/#1A-1
 
 To reference an image directly (for example 1A-1)
-https://tools.canonn.technology/thargoid_glyphs/composite/1A-1.png
+https://tools.canonn.tech/thargoid_glyphs/images/composite/1A-1.png
 
 You can embed an image in a google sheet cell with this formula (for example the value of a cell such as A7 having "1A-1")
-IMAGE("https://tools.canonn.technology/thargoid_glyphs/composite/" & A7 & ".png")
+IMAGE("https://tools.canonn.tech/thargoid_glyphs/images/composite/" & A7 & ".png")
 
 # Attribution
 This work would not have been possible without the pioneering research of CMDR Orodir, CMDR Olivia Vespera and other commanders documented here
