@@ -1,5 +1,7 @@
 # Valknut
 
+__**This repo is now archived, it's code has been moved to our Tools Mono-repo: https://github.com/canonn-science/canonn-tools**__
+
 Symbol Version 4.0.1 updated 18/11/2017
             
 # How to use            
